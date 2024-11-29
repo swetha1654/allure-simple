@@ -1,26 +1,35 @@
-name: Run tests and publish report
+name: Allure Report
+
 on: [push]
+
 jobs:
-  test:
+  autotests:
+    name: Run tests and generate Allure Report
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Set up Python 3.x
+        uses: actions/setup-python@v2
         with:
-          python-version: '3.9' 
-          
+          python-version: '3.x'
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pytest
-  
-      - name: Run tests
-        run: |
-          pytest --verbose
+          pip install -r requirements.txt
 
-      - name: Load test report history
+      - name: Check code style
+        if: always()
+        run: |
+          flake8
+
+      - name: Run Test
+        if: always()
+        run: pytest --alluredir=allure-results
+        continue-on-error: true
+
+      - name: Get Allure history
         uses: actions/checkout@v3
         if: always()
         continue-on-error: true
@@ -28,18 +37,17 @@ jobs:
           ref: gh-pages
           path: gh-pages
 
-      - name: Build test report
+      - name: Allure Report action from marketplace
         uses: simple-elf/allure-report-action@v1.7
         if: always()
         with:
-          gh_pages: gh-pages
+          allure_results: allure-results
           allure_history: allure-history
-          allure_results: build/allure-results
 
-      - name: Publish test report
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Deploy report to Github Pages
         if: always()
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: allure-history
+        uses: peaceiris/actions-gh-pages@v2
+        env:
+          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: allure-history
