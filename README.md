@@ -1,1 +1,2 @@
 # allure-simple
+edit
