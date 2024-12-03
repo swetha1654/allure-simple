@@ -40,4 +40,5 @@ jobs:
         with:
           name: allure-results-${{ inputs.module-name }}
           path: allure-${{ inputs.module-name }}
+          if-no-files-found: error
 

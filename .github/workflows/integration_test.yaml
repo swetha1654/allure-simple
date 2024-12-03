@@ -50,14 +50,18 @@ jobs:
         with:
           ref: gh-pages
           path: repo/
-      - name: Download first test collection results
-        # Default test results in case the integration tests time out or runner set up fails
-        # (So that Allure report will show "unknown"/"failed" test result, instead of omitting the test)
+      - name: Download first test results
         uses: actions/download-artifact@v4
         with:
           path: allure-results/
-          name: allure-results*
-          merge-multiple: true
+          name: allure-results-test_calculator
+          merge: true
+      - name: Download second test results
+        uses: actions/download-artifact@v4
+        with:
+          path: allure-results/
+          name: allure-results-test_utils
+          merge: true
       - name: Load test report history
         run: |
           if [[ -d repo/_latest/history/ ]]
