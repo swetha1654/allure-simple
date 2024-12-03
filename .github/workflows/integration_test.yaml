@@ -21,7 +21,6 @@ jobs:
   allure-report:
     # TODO future improvement: use concurrency group for job
     name: (beta) Publish Allure report
-    if: ${{ !cancelled() && inputs._beta_allure_report && github.event_name == 'schedule' && github.run_attempt == '1'}}
     needs:
       - first-test
       - second-test
