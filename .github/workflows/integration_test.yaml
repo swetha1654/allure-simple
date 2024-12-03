@@ -12,6 +12,7 @@ jobs:
 
   second-test:
     name: Test Calculator
+    needs: [first-test]
     uses: swetha1654/allure-simple/.github/workflows/main.yaml@calc
     with:
       module-name: test_utils
