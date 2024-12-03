@@ -1,0 +1,20 @@
+name: Integration Test
+
+on: [push]
+
+jobs:
+  first-test:
+    name: Test Calculator
+    uses: swetha1654/allure-simple/.github/workflows/main.yaml@calc
+    with:
+      module-name: test_calculator
+
+
+jobs:
+  first-test:
+    name: Test Calculator
+    uses: swetha1654/allure-simple/.github/workflows/main.yaml@calc
+    with:
+      module-name: test_utils
+
+

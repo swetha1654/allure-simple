@@ -1,6 +1,11 @@
 name: Allure Report
 
-on: [push]
+on: 
+  workflow_call:
+    inputs: 
+      module-name:
+        type: string
+        default: something
 
 jobs:
   autotests:
@@ -26,7 +31,7 @@ jobs:
 
       - name: Run Test
         if: always()
-        run: pytest --alluredir=allure-results
+        run: pytest -k ${{ inputs.module-name }} --alluredir=allure-results/${{ inputs.module-name }}
         continue-on-error: true
 
       - name: Get Allure history
