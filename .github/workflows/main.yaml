@@ -31,28 +31,13 @@ jobs:
 
       - name: Run Test
         if: always()
-        run: pytest -k ${{ inputs.module-name }} --alluredir=allure-results
+        run: pytest -k ${{ inputs.module-name }} --alluredir=allure-${{ inputs.module-name }}
         continue-on-error: true
 
-      - name: Get Allure history
-        uses: actions/checkout@v3
-        if: always()
-        continue-on-error: true
+      - name: Upload Allure results
+        timeout-minutes: 3
+        uses: actions/upload-artifact@v4
         with:
-          ref: gh-pages
-          path: gh-pages
+          name: allure-results-${{ inputs.module-name }}
+          path: allure-${{ inputs.module-name }}
 
-      - name: Allure Report action from marketplace
-        uses: simple-elf/allure-report-action@v1.7
-        if: always()
-        with:
-          allure_results: allure-results
-          allure_history: allure-history
-
-      - name: Deploy report to Github Pages
-        if: always()
-        uses: peaceiris/actions-gh-pages@v2
-        env:
-          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: allure-history
