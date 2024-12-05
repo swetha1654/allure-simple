@@ -38,7 +38,7 @@ jobs:
         timeout-minutes: 3
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results-${{ github.run_id }}-${{ inputs.module-name }}
+          name: allure-results-${{ github.job }}-${{ inputs.module-name }}
           path: allure-${{ inputs.module-name }}
           if-no-files-found: error
 
