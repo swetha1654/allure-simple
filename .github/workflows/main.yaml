@@ -23,6 +23,21 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+      
+      - name: Install pytest plugin
+        run: pipx install git+https://github.com/swetha1654/allure-simple@calc#subdirectory=python/pytest_plugins/allure_collection_pytest_report
+
+      - name: Collect tests
+        run: |
+          pytest -k ${{ inputs.module-name }} --allure-collection-dir=allure-default
+
+      - name: Upload Default Allure results
+        timeout-minutes: 3
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-default-results-${{ github.run_number }}-${{ inputs.module-name }}
+          path: allure-default/
+          if-no-files-found: error
 
       - name: Check code style
         if: always()
@@ -32,7 +47,7 @@ jobs:
       - name: Run Test
         if: always()
         run: pytest -k ${{ inputs.module-name }} --alluredir=allure-${{ inputs.module-name }}
-        continue-on-error: true
+        continue-on-error: true          
 
       - name: Upload Allure results
         timeout-minutes: 3
