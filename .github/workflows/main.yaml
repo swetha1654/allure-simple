@@ -25,7 +25,7 @@ jobs:
           pip install -r requirements.txt
       
       - name: Install pytest plugin
-        run: pipx install git+https://github.com/swetha1654/allure-simple@calc#subdirectory=python/pytest_plugins/allure_pytest_collection_report
+        run: pip install git+https://github.com/swetha1654/allure-simple@calc#subdirectory=python/pytest_plugins/allure_pytest_collection_report
 
       - name: Collect tests
         run: |
