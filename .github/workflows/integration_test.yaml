@@ -21,6 +21,7 @@ jobs:
   allure-report:
     # TODO future improvement: use concurrency group for job
     name: (beta) Publish Allure report
+    if: always()
     needs:
       - first-test
       - second-test

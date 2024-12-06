@@ -39,10 +39,10 @@ jobs:
           path: allure-default/
           if-no-files-found: error
 
-      # - name: Check code style
-      #   if: always()
-      #   run: |
-      #     flake8
+      - name: Check code style
+        if: always()
+        run: |
+          flake8
 
       - name: Run Test
         if: always()
