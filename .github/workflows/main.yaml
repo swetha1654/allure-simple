@@ -23,9 +23,14 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+
+      - name: Set branch name
+        run: |
+          echo "BRANCH_NAME=${GITHUB_HEAD_REF}" 
+          echo "BRANCH_NAME=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
       
       - name: Install pytest plugin
-        run: pip install git+https://github.com/swetha1654/allure-simple@calc#subdirectory=python/pytest_plugins/allure_pytest_collection_report
+        run: pip install git+https://github.com/swetha1654/allure-simple@${{ env.BRANCH_NAME }}#subdirectory=python/pytest_plugins/allure_pytest_collection_report
 
       - name: Collect tests
         run: |
