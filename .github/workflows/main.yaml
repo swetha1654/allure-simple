@@ -26,8 +26,26 @@ jobs:
 
       - name: Set branch name
         run: |
-          echo "BRANCH_NAME=${GITHUB_HEAD_REF}" 
-          echo "BRANCH_NAME=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
+          echo "BRANCH_NAME=${github.ref_name}" 
+          echo "Head ref: ${{ github.head_ref }}"
+          echo "BRANCH_NAME=${github.ref_name}" >> $GITHUB_ENV
+
+      - name: Integration tests variable setting
+        run: |
+          allure_artifact_suffix=$(uuidgen)
+          series=""
+          if [ ! -z ${{ matrix.series }} ]; then
+            series="--series ${{ matrix.series }}"
+            allure_artifact_suffix="$allure_artifact_suffix"-${{ matrix.series }}
+          fi
+          echo "SERIES=$series" >> $GITHUB_ENV
+          module=""
+          if [ ! -z ${{ matrix.modules }} ]; then
+            module="-k ${{ matrix.modules }}"
+            allure_artifact_suffix="$allure_artifact_suffix"-${{ matrix.modules }}
+          fi
+          echo "MODULE=$module" >> $GITHUB_ENV
+          echo "ALLURE_ARTIFACT_SUFFIX=$allure_artifact_suffix" >> $GITHUB_ENV
       
       - name: Install pytest plugin
         run: pip install git+https://github.com/swetha1654/allure-simple@${{ env.BRANCH_NAME }}#subdirectory=python/pytest_plugins/allure_pytest_collection_report
