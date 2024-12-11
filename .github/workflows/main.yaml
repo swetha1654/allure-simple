@@ -18,6 +18,19 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
+
+      - name: Set env variable
+        run: |
+          echo 'ENABLE_ALLURE=false' >> $GITHUB_ENV
+
+      - name: Get variable
+        run: | 
+          echo "${{ env.ENABLE_ALLURE }}"
+          if ["$env.ENABLE_ALLURE" == 'true']; then
+            echo "abc"
+          else
+            echo "def"
+          fi
       
       - name: Install tox
         run: |
