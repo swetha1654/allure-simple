@@ -26,7 +26,7 @@ jobs:
       - name: Get variable
         run: | 
           echo "${{ env.ENABLE_ALLURE }}"
-          if ["$env.ENABLE_ALLURE" == 'true']; then
+          if [env.ENABLE_ALLURE == 'true']; then
             echo "abc"
           else
             echo "def"
