@@ -18,6 +18,34 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
+      
+      - name: Install tox
+        run: |
+          if which tox &> /dev/null; then
+            echo "tox is already installed."
+            tox --version
+          fi
+
+          pip_path=$(which pip 2>/dev/null)
+          SYSTEM_PIP_PATH="/usr/bin/pip"
+          if [ -n "$pip_path" ] && [ "$pip_path" != "$SYSTEM_PIP_PATH" ]; then
+              echo "Pip is available and not system-managed. Installing tox"
+              pip install tox
+          fi
+
+          if which pipx &> /dev/null; then
+              echo "Pipx is available. Installing tox"
+              pipx install tox
+          fi
+
+          echo "Neither pip nor pipx are available. Installing pipx via apt..."
+          sudo apt-get update -yqq
+          sudo apt-get install -yqq pipx
+          pipx ensurepath
+          sudo pipx ensurepath
+
+          echo "Installing tox with pipx..."
+          pipx install tox
 
       - name: Install dependencies
         run: |
