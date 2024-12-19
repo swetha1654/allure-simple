@@ -24,6 +24,3 @@ jobs:
       - second-test
     uses: swetha1654/allure-simple/.github/workflows/allure_report.yaml@calc
 
-
-
-
