@@ -22,7 +22,7 @@ jobs:
     needs:
       - first-test
       - second-test
-    uses: swetha1654/allure-simple/.github/workflows/allure-report.yaml@calc
+    uses: swetha1654/allure-simple/.github/workflows/allure_report.yaml@calc
 
 
 
