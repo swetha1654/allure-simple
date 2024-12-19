@@ -2,20 +2,33 @@ name: Integration Test
 
 on:
   pull_request:
+    inputs: 
+        module-name:
+          type: string
+          default: something
   schedule:
     # Trigger at 6:00 AM and 6:00 PM UTC
     - cron: "0 6,18 * * *"
+      inputs: 
+      module-name:
+        type: string
+        default: something
+  
 
 
 jobs:
   first-test:
     name: Test Calculator
     uses: swetha1654/allure-simple/.github/workflows/main.yaml@calc
+    with:
+      module-name: test_calculator
 
   second-test:
     name: Test Utils
     needs: [first-test]
     uses: swetha1654/allure-simple/.github/workflows/main.yaml@calc
+    with:
+      module-name: test_utils
 
   allure-report:
     if: always() && !cancelled() && ${{ github.event_name == 'schedule' }}
