@@ -7,9 +7,6 @@ jobs:
     # TODO future improvement: use concurrency group for job
     name: (beta) Publish Allure report
     if: always()
-    needs:
-      - first-test
-      - second-test
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
