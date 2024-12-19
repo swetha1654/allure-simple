@@ -2,17 +2,9 @@ name: Integration Test
 
 on:
   pull_request:
-    inputs: 
-        module-name:
-          type: string
-          default: something
   schedule:
     # Trigger at 6:00 AM and 6:00 PM UTC
     - cron: "0 6,18 * * *"
-      inputs: 
-      module-name:
-        type: string
-        default: something
   
 
 

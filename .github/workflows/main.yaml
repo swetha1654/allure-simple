@@ -1,7 +1,11 @@
 name: Allure Report
 
 on: 
-  workflow_call
+  workflow_call:
+    inputs: 
+      module-name:
+        type: string
+        default: something
 
 jobs:
   autotests:
