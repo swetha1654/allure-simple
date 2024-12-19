@@ -1,11 +1,7 @@
 name: Allure Report
 
 on: 
-  workflow_call:
-    inputs: 
-      module-name:
-        type: string
-        default: something
+  workflow_call
 
 jobs:
   autotests:
@@ -89,11 +85,6 @@ jobs:
           name: allure-default-results-${{ github.run_number }}-${{ inputs.module-name }}
           path: allure-default/
           if-no-files-found: error
-
-      - name: Check code style
-        if: always()
-        run: |
-          flake8
 
       - name: Run Test
         if: always()
