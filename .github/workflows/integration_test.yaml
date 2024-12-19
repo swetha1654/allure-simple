@@ -23,7 +23,7 @@ jobs:
       module-name: test_utils
 
   allure-report:
-    if: ${{ github.event_name == 'schedule' }}
+    if: ${{ github.event_name == 'schedule' }} && always() && !cancelled()
     needs:
       - first-test
       - second-test
