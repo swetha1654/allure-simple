@@ -72,7 +72,7 @@ jobs:
           echo "ALLURE_ARTIFACT_SUFFIX=$allure_artifact_suffix" >> $GITHUB_ENV
       
       - name: Install pytest plugin
-        run: pip install git+https://github.com/swetha1654/allure-simple@${{ env.BRANCH_NAME }}#subdirectory=python/pytest_plugins/allure_pytest_collection_report
+        run: pip install git+https://github.com/swetha1654/allure-simple@calc#subdirectory=python/pytest_plugins/allure_pytest_collection_report
 
       - name: Collect tests
         run: |
