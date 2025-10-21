@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5.0.0
       - name: Create gh-pages branch if not exists
         run: |
           git ls-remote --exit-code origin gh-pages
