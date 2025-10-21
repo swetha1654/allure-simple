@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      steps:
       - name: Create gh-pages branch if not exists
         run: |
           git ls-remote --exit-code origin gh-pages
