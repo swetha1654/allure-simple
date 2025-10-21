@@ -24,8 +24,8 @@ jobs:
 
   allure-report:
     if: ${{ (success() || failure()) && github.event_name == 'schedule' }}
-    needs:
-      - first-test
-      - second-test
+    # needs:
+    #   - first-test
+    #   - second-test
     uses: swetha1654/allure-simple/.github/workflows/allure_report.yaml@calc
 
