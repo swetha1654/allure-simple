@@ -11,21 +11,21 @@ on:
 jobs:
   first-test:
     name: Test Calculator
-    uses: swetha1654/allure-simple/.github/workflows/main.yaml@calc
+    uses: swetha1654/allure-simple/.github/workflows/main.yaml@test-git
     with:
       module-name: test_calculator
 
   second-test:
     name: Test Utils
     needs: [first-test]
-    uses: swetha1654/allure-simple/.github/workflows/main.yaml@calc
+    uses: swetha1654/allure-simple/.github/workflows/main.yaml@test-git
     with:
       module-name: test_utils
 
   allure-report:
-    if: ${{ (success() || failure()) && github.event_name == 'schedule' }}
+    # if: ${{ (success() || failure()) && github.event_name == 'schedule' }}
     needs:
       - first-test
       - second-test
-    uses: swetha1654/allure-simple/.github/workflows/allure_report.yaml@calc
+    uses: swetha1654/allure-simple/.github/workflows/allure_report.yaml@test-git
 
