@@ -14,7 +14,6 @@ jobs:
         uses: actions/checkout@v5.0.0
       - name: Create gh-pages branch if not exists
         run: |
-          git ls-remote --exit-code origin gh-pages
           if ! git ls-remote --exit-code origin gh-pages >/dev/null 2>&1; then
             echo "gh-pages branch not found. Creating it..."
             git clone --depth=1 "https://github.com/${{ github.repository }}" tmp-repo
