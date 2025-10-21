@@ -23,7 +23,7 @@ jobs:
       module-name: test_utils
 
   allure-report:
-    if: ${{ (success() || failure()) && github.event_name == 'schedule' }}
+    # if: ${{ (success() || failure()) && github.event_name == 'schedule' }}
     # needs:
     #   - first-test
     #   - second-test
