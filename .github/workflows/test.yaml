@@ -2,6 +2,10 @@ name: test-always
 
 on:
   workflow_dispatch:
+    inputs:
+      run_job:
+        type: boolean
+        default: true
 
 jobs:
   test:
