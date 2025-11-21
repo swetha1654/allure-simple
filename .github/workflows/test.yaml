@@ -18,9 +18,9 @@ jobs:
         if: false
         run: echo "You should NOT see this."
 
-      - name: Step B — always()
-        if: always()
-        run: echo "B RAN because always() is true inside a running job."
+      - name: Step B — success() || failure()
+        if: ${{ success() || failure() }}
+        run: echo "B RAN because job is running."
 
       - name: Status check
         run: echo "Job status ${{ job.status }}"
