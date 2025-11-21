@@ -1,0 +1,22 @@
+name: test-always
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    # This makes the job run only if "run_job" input is true
+    if: ${{ github.event.inputs.run_job == 'true' }}
+
+    steps:
+      - name: Step A — forced skip
+        if: false
+        run: echo "You should NOT see this."
+
+      - name: Step B — always()
+        if: always()
+        run: echo "B RAN because always() is true inside a running job."
+
+      - name: Status check
+        run: echo "Job status: ${{ job.status }}"
